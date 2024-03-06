@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <h1 class="display-4"><%= @restaurant.name %></h1>
+
+  <p class="lead">
+    <strong>Address:</strong>
+    <%= @restaurant.address %>
+  </p>
+
+  <p class="lead">
+    <strong>Phone Number:</strong>
+    <%= @restaurant.phone_number %>
+  </p>
+
+  <p class="lead">
+    <strong>Category:</strong>
+    <%= @restaurant.category %>
+  </p>
+
+  <hr class="my-4">
+
+  <h2>Reviews</h2>
+  <% if @restaurant.reviews.any? %>
+    <div class="list-group">
+      <% @restaurant.reviews.each do |review| %>
+        <div class="list-group-item">
+          <h5 class="mb-1">Rating:
+            <% review.rating.times do %>
+              <i class="fas fa-star text-warning"></i>
+            <% end %>
+            <% (5 - review.rating).times do %>
+              <i class="far fa-star text-warning"></i>
+            <% end %>
+          </h5>
+          <p class="mb-1"><%= review.content %></p>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted">No reviews yet.</p>
+  <% end %>
+
+  <hr>
+
+   <%= link_to 'Add Review', new_restaurant_review_path(@restaurant), class: 'btn btn-primary' %>
+
+  <hr>
+
+   <%= link_to 'Back to Restaurants List', restaurants_path, class: 'btn btn-secondary ml-2' %>
